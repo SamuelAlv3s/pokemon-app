@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="danger">
+    <ion-title> Blank </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let pokemon of pokemonList?.results">
+      <img [src]="pokemon.image" />
+      <ion-label>{{pokemon.name | titlecase}}</ion-label>
+      <ion-button color="dark">
+        <ion-icon name="star-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="danger">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div class="container-pages">
+      <ion-button color="danger"> 1 </ion-button>
+      <ion-button color="danger"> 2 </ion-button>
+      <ion-button color="danger"> 3</ion-button>
+      <ion-button color="danger"> 4</ion-button>
+      <ion-button color="danger"> 5</ion-button>
+    </div>
+    <ion-buttons slot="end">
+      <ion-button color="danger">
+        <ion-icon name="arrow-forward-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
