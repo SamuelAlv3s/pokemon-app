@@ -1,6 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="danger">
-    <ion-title> Blank </ion-title>
+    <div class="container-logo">
+      <img src="/assets/images/pokemon-logo.png" alt="pokemon logo" />
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -9,9 +11,15 @@
     <ion-item *ngFor="let pokemon of pokemonList?.results">
       <img [src]="pokemon.image" />
       <ion-label>{{pokemon.name | titlecase}}</ion-label>
-      <ion-button color="dark">
-        <ion-icon name="star-outline" slot="icon-only"></ion-icon>
-      </ion-button>
+      <ion-buttons>
+        <ion-button (click)="addToFavorites(pokemon)">
+          <ion-icon
+            [name]="pokemon.isFavorite? 'star' : 'star-outline'"
+            [color]="pokemon.isFavorite? 'warning' : ''"
+            slot="icon-only"
+          ></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-item>
   </ion-list>
 </ion-content>

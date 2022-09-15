@@ -1,3 +1,16 @@
+ion-header {
+  .container-logo {
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 160px;
+      height: 60px;
+      object-fit: contain;
+    }
+  }
+}
 .container-pages {
   display: flex;
   justify-content: center;

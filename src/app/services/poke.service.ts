@@ -2,6 +2,23 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
+export interface IAllPokemons {
+  count: number;
+  next: string;
+  previous: any;
+  results: IResultPokemon[];
+}
+
+export interface IBaseResultPokemon {
+  name: string;
+  url: string;
+}
+
+export interface IResultPokemon extends IBaseResultPokemon {
+  image: string;
+  isFavorite?: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,7 +30,7 @@ export class PokeService {
   constructor(private http: HttpClient) {}
 
   getAllPokemons() {
-    return this.http.get(this.baseUrl).pipe(
+    return this.http.get<IAllPokemons>(this.baseUrl).pipe(
       map((result) => {
         // eslint-disable-next-line @typescript-eslint/dot-notation
         const resultsWithImages = result['results'].map((item, index) => ({
