@@ -5,20 +5,31 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen="true" class="ion-padding-top">
-  <ion-card>
-    <img [src]="pokemonDetails?.image" [alt]="pokemonName" />
+<ion-content fullscreen="true">
+  <ion-card *ngIf="pokemonDetails; else loading" class="ion-margin-top">
+    <div class="container-pokemon-image">
+      <img [src]="pokemonDetails.image" [alt]="pokemonName" />
+    </div>
     <ion-card-content>
       <ion-item>
         <ion-label>Pokemon Type</ion-label>
-        <ion-chip color="danger" *ngFor="let type of pokemonDetails?.types">
+        <ion-chip color="danger" *ngFor="let type of pokemonDetails.types">
           {{type | titlecase}}
         </ion-chip>
       </ion-item>
-      <ion-item *ngFor="let stat of pokemonDetails?.stats">
+      <ion-item *ngFor="let stat of pokemonDetails.stats">
         <ion-label>{{stat.name | titlecase}}</ion-label>
         <ion-badge>{{stat.value}}</ion-badge>
       </ion-item>
     </ion-card-content>
   </ion-card>
+
+  <ng-template #loading>
+    <div class="container-loading">
+      <img
+        src="/assets/images/pokeball-loading-animation.gif"
+        alt="pokeball-loading"
+      />
+    </div>
+  </ng-template>
 </ion-content>
