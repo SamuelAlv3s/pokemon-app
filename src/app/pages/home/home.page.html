@@ -8,11 +8,14 @@
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item *ngFor="let pokemon of pokemonList?.results">
+    <ion-item
+      *ngFor="let pokemon of pokemonList?.results"
+      (click)="showPokemonDetails(pokemon)"
+    >
       <img [src]="pokemon.image" />
       <ion-label>{{pokemon.name | titlecase}}</ion-label>
       <ion-buttons>
-        <ion-button (click)="addToFavorites(pokemon)">
+        <ion-button (click)="addToFavorites($event, pokemon)">
           <ion-icon
             [name]="pokemon.isFavorite? 'star' : 'star-outline'"
             [color]="pokemon.isFavorite? 'warning' : ''"

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { IResponsePokemonDetails } from '../interfaces/pokemon-details.interface';
 
 export interface IAllPokemons {
   count: number;
@@ -45,5 +46,24 @@ export class PokeService {
 
   getPokemonImage(pokemonIndex: number) {
     return `${this.baseUrlPokemonImage}${pokemonIndex}.png`;
+  }
+
+  getPokemonDetails(name: string) {
+    return this.http
+      .get<IResponsePokemonDetails>(`${this.baseUrl}${name}`)
+      .pipe(
+        map((result) => {
+          const pokemonDetails = {
+            image: result.sprites.other.dream_world.front_default,
+            stats: result.stats.map((item) => ({
+              name: item.stat.name,
+              value: item.base_stat,
+            })),
+            types: result.types.map((item) => item.type.name),
+          };
+
+          return pokemonDetails;
+        })
+      );
   }
 }
