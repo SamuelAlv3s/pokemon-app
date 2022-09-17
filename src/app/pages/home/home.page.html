@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="danger">
-    <div class="container-logo">
+    <div class="container-logo" (click)="loadPokemons()">
       <img src="/assets/images/pokemon-logo.png" alt="pokemon logo" />
     </div>
   </ion-toolbar>
@@ -29,19 +29,21 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="danger">
+      <ion-button color="danger" (click)="previousPage()">
         <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
     <div class="container-pages">
-      <ion-button color="danger"> 1 </ion-button>
-      <ion-button color="danger"> 2 </ion-button>
-      <ion-button color="danger"> 3</ion-button>
-      <ion-button color="danger"> 4</ion-button>
-      <ion-button color="danger"> 5</ion-button>
+      <ion-button
+        *ngFor="let item of paginateItens"
+        [color]="item === paginate.currentPage? 'danger' : 'medium'"
+        (click)="goToPage(item)"
+      >
+        {{item}}
+      </ion-button>
     </div>
     <ion-buttons slot="end">
-      <ion-button color="danger">
+      <ion-button color="danger" (click)="nextPage()">
         <ion-icon name="arrow-forward-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>

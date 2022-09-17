@@ -7,7 +7,10 @@
 
 <ion-content fullscreen="true">
   <ion-card *ngIf="pokemonDetails; else loading" class="ion-margin-top">
-    <div class="container-pokemon-image">
+    <div
+      class="container-pokemon-image"
+      [ngStyle]="{background: pokemonTypesBackground[pokemonDetails.types[0]]}"
+    >
       <img [src]="pokemonDetails.image" [alt]="pokemonName" />
     </div>
     <ion-card-content>

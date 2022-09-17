@@ -24,24 +24,29 @@ export interface IResultPokemon extends IBaseResultPokemon {
   providedIn: 'root',
 })
 export class PokeService {
-  private baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
+  public limit = 25;
+  private baseUrl = 'https://pokeapi.co/api/v2/pokemon';
   private baseUrlPokemonImage =
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
   constructor(private http: HttpClient) {}
 
-  getAllPokemons() {
-    return this.http.get<IAllPokemons>(this.baseUrl).pipe(
-      map((result) => {
-        // eslint-disable-next-line @typescript-eslint/dot-notation
-        const resultsWithImages = result['results'].map((item, index) => ({
-          ...item,
-          image: this.getPokemonImage(index + 1),
-        }));
+  getAllPokemons(offset?: number) {
+    return this.http
+      .get<IAllPokemons>(
+        `${this.baseUrl}?limit=${this.limit}&offset=${offset || 0}`
+      )
+      .pipe(
+        map((result) => {
+          // eslint-disable-next-line @typescript-eslint/dot-notation
+          const resultsWithImages = result['results'].map((item, index) => ({
+            ...item,
+            image: this.getPokemonImage(Number((offset || 0) + index + 1)),
+          }));
 
-        return { ...result, results: resultsWithImages };
-      })
-    );
+          return { ...result, results: resultsWithImages };
+        })
+      );
   }
 
   getPokemonImage(pokemonIndex: number) {
@@ -50,11 +55,13 @@ export class PokeService {
 
   getPokemonDetails(name: string) {
     return this.http
-      .get<IResponsePokemonDetails>(`${this.baseUrl}${name}`)
+      .get<IResponsePokemonDetails>(`${this.baseUrl}/${name}`)
       .pipe(
         map((result) => {
           const pokemonDetails = {
-            image: result.sprites.other.dream_world.front_default,
+            image:
+              result.sprites.other.dream_world.front_default ||
+              result.sprites.other.home.front_default,
             stats: result.stats.map((item) => ({
               name: item.stat.name,
               value: item.base_stat,
