@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" [scrollEvents]="true" [appFooter]="footer">
   <ion-list *ngIf="pokemonList; else loading">
     <ion-item
       *ngFor="let pokemon of pokemonList?.results"
@@ -29,7 +29,7 @@
     <app-loading></app-loading>
   </ng-template>
 </ion-content>
-<ion-footer>
+<ion-footer #footer>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button color="danger" (click)="previousPage()">
