@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonContent } from '@ionic/angular';
 import {
   IAllPokemons,
   IResultPokemon,
@@ -12,6 +13,7 @@ import {
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+  @ViewChild(IonContent, { static: true }) content: IonContent;
   public pokemonList: IAllPokemons;
   public paginate = {
     maxItensVisible: 5,
@@ -27,6 +29,7 @@ export class HomePage implements OnInit {
   }
 
   loadPokemons(offset?: number) {
+    this.content.scrollToTop(1500);
     this.pokeService.getAllPokemons(offset).subscribe((result) => {
       console.log(result);
 

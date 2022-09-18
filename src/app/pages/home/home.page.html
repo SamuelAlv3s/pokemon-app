@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
+  <ion-list *ngIf="pokemonList; else loading">
     <ion-item
       *ngFor="let pokemon of pokemonList?.results"
       (click)="showPokemonDetails(pokemon)"
@@ -25,6 +25,9 @@
       </ion-buttons>
     </ion-item>
   </ion-list>
+  <ng-template #loading>
+    <app-loading></app-loading>
+  </ng-template>
 </ion-content>
 <ion-footer>
   <ion-toolbar>
