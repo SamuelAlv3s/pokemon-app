@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonContent } from '@ionic/angular';
+import { IonContent, ToastController } from '@ionic/angular';
 import {
   IAllPokemons,
   IResultPokemon,
   PokeService,
 } from 'src/app/services/poke.service';
+import { WebhookService } from 'src/app/services/webhook.service';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,12 @@ export class HomePage implements OnInit {
   };
 
   public paginateItens = [];
-  constructor(private pokeService: PokeService, private router: Router) {}
+  constructor(
+    private pokeService: PokeService,
+    private router: Router,
+    private webhookService: WebhookService,
+    private toastCtrl: ToastController
+  ) {}
 
   ngOnInit(): void {
     this.loadPokemons();
@@ -44,6 +50,20 @@ export class HomePage implements OnInit {
   addToFavorites(event: Event, pokemon: IResultPokemon) {
     event.stopPropagation();
     pokemon.isFavorite = !pokemon.isFavorite;
+    this.webhookService.sendPokemonToFavorites(pokemon).subscribe((_) => {
+      this.showToast();
+    });
+  }
+
+  async showToast() {
+    const toast = await this.toastCtrl.create({
+      color: 'primary',
+      position: 'top',
+      duration: 3000,
+      message: 'Pokemon enviado para os favoritos',
+    });
+
+    await toast.present();
   }
 
   showPokemonDetails({ name }: IResultPokemon) {
