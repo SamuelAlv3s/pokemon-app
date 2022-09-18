@@ -31,6 +31,7 @@ export class PokemonDetailsPage implements OnInit {
     ground: '#fdedba',
     dark: '#4d4d4d2a',
   };
+  public imageLoaded = false;
   constructor(
     private pokeService: PokeService,
     private activatedRoute: ActivatedRoute

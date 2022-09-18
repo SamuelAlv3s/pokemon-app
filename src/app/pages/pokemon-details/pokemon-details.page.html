@@ -6,28 +6,34 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-  <ion-card *ngIf="pokemonDetails; else loading" class="ion-margin-top">
+  <!-- *ngIf="pokemonDetails; else loading" -->
+  <ion-card
+    [ngClass]="{'ion-hide': !pokemonDetails && !imageLoaded}"
+    class="ion-margin-top"
+  >
     <div
       class="container-pokemon-image"
-      [ngStyle]="{background: pokemonTypesBackground[pokemonDetails.types[0]]}"
+      [ngStyle]="{background: pokemonTypesBackground[pokemonDetails?.types[0]]}"
     >
-      <img [src]="pokemonDetails.image" [alt]="pokemonName" />
+      <ion-img
+        [src]="pokemonDetails?.image"
+        [alt]="pokemonName"
+        (ionImgDidLoad)="imageLoaded=true"
+      ></ion-img>
     </div>
     <ion-card-content>
       <ion-item>
         <ion-label>Pokemon Type</ion-label>
-        <ion-chip color="danger" *ngFor="let type of pokemonDetails.types">
+        <ion-chip color="danger" *ngFor="let type of pokemonDetails?.types">
           {{type | titlecase}}
         </ion-chip>
       </ion-item>
-      <ion-item *ngFor="let stat of pokemonDetails.stats">
+      <ion-item *ngFor="let stat of pokemonDetails?.stats">
         <ion-label>{{stat.name | titlecase}}</ion-label>
         <ion-badge>{{stat.value}}</ion-badge>
       </ion-item>
     </ion-card-content>
   </ion-card>
 
-  <ng-template #loading>
-    <app-loading></app-loading>
-  </ng-template>
+  <app-loading *ngIf="!pokemonDetails && !imageLoaded"></app-loading>
 </ion-content>
