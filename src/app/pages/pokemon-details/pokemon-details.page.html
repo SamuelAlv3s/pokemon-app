@@ -5,35 +5,36 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen="true">
-  <!-- *ngIf="pokemonDetails; else loading" -->
-  <ion-card
-    [ngClass]="{'ion-hide': !pokemonDetails && !imageLoaded}"
-    class="ion-margin-top"
-  >
-    <div
-      class="container-pokemon-image"
-      [ngStyle]="{background: pokemonTypesBackground[pokemonDetails?.types[0]]}"
+<ion-content [fullscreen]="true" class="ion-padding-top">
+  <div class="container-card" [ngStyle]="{height: isMobile? '100%' : ''}">
+    <ion-card
+      mode="ios"
+      [ngClass]="{'ion-hide': !pokemonDetails && !imageLoaded}"
+      class="ion-margin-top"
     >
-      <ion-img
-        [src]="pokemonDetails?.image"
-        [alt]="pokemonName"
-        (ionImgDidLoad)="imageLoaded=true"
-      ></ion-img>
-    </div>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>Pokemon Type</ion-label>
-        <ion-chip color="danger" *ngFor="let type of pokemonDetails?.types">
-          {{type | titlecase}}
-        </ion-chip>
-      </ion-item>
-      <ion-item *ngFor="let stat of pokemonDetails?.stats">
-        <ion-label>{{stat.name | titlecase}}</ion-label>
-        <ion-badge>{{stat.value}}</ion-badge>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-
-  <app-loading *ngIf="!pokemonDetails && !imageLoaded"></app-loading>
+      <div
+        class="container-pokemon-image"
+        [ngStyle]="{background: pokemonTypesBackground[pokemonDetails?.types[0]]}"
+      >
+        <ion-img
+          [src]="pokemonDetails?.image"
+          [alt]="pokemonName"
+          (ionImgDidLoad)="imageLoaded=true"
+        ></ion-img>
+      </div>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Pokemon Type</ion-label>
+          <ion-chip color="dark" *ngFor="let type of pokemonDetails?.types">
+            {{type | titlecase}}
+          </ion-chip>
+        </ion-item>
+        <ion-item *ngFor="let stat of pokemonDetails?.stats">
+          <ion-label>{{stat.name | titlecase}}</ion-label>
+          <ion-badge color="danger">{{stat.value}}</ion-badge>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <app-loading *ngIf="!pokemonDetails && !imageLoaded"></app-loading>
+  </div>
 </ion-content>

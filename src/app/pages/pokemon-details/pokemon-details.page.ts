@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Platform } from '@ionic/angular';
 import { IPokemonDetails } from 'src/app/interfaces/pokemon-details.interface';
 import { PokeService } from 'src/app/services/poke.service';
 
@@ -32,12 +33,16 @@ export class PokemonDetailsPage implements OnInit {
     dark: '#4d4d4d2a',
   };
   public imageLoaded = false;
+  public isMobile = false;
   constructor(
     private pokeService: PokeService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private plt: Platform
   ) {}
 
   ngOnInit() {
+    this.isMobile = this.plt.is('mobile' || 'mobileweb');
+
     this.activatedRoute.queryParamMap.subscribe((result) => {
       this.pokemonName = result.get('name');
       this.pokeService
