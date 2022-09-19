@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="danger">
-    <div class="container-logo" (click)="loadPokemons()">
+    <div
+      class="container-logo"
+      (click)="loadPokemons(); paginate.currentPage = 1"
+    >
       <img src="/assets/images/pokemon-logo.png" alt="pokemon logo" />
     </div>
   </ion-toolbar>

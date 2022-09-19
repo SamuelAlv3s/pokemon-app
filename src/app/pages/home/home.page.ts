@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonContent, ToastController } from '@ionic/angular';
+import {
+  AnimationController,
+  IonContent,
+  ToastController,
+} from '@ionic/angular';
 import {
   IAllPokemons,
   IResultPokemon,
@@ -27,7 +31,8 @@ export class HomePage implements OnInit {
     private pokeService: PokeService,
     private router: Router,
     private webhookService: WebhookService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private animationCtrl: AnimationController
   ) {}
 
   ngOnInit(): void {
@@ -37,8 +42,6 @@ export class HomePage implements OnInit {
   loadPokemons(offset?: number) {
     this.content.scrollToTop(1500);
     this.pokeService.getAllPokemons(offset).subscribe((result) => {
-      console.log(result);
-
       this.paginate.totalPages = Math.floor(
         result.count / this.pokeService.limit
       );
@@ -49,10 +52,28 @@ export class HomePage implements OnInit {
 
   addToFavorites(event: Event, pokemon: IResultPokemon) {
     event.stopPropagation();
+    this.animateButtonFavorite(event.target as HTMLElement);
     pokemon.isFavorite = !pokemon.isFavorite;
-    this.webhookService.sendPokemonToFavorites(pokemon).subscribe((_) => {
-      this.showToast();
-    });
+    this.webhookService
+      .sendPokemonToFavorites(pokemon)
+      .subscribe((_) => this.showToast());
+  }
+
+  animateButtonFavorite(element: HTMLElement) {
+    const keyframes = [
+      { offset: 0, transform: 'scale(1)' },
+      { offset: 0.5, transform: 'scale(1.2)' },
+      { offset: 0.6, transform: 'scale(1.4)' },
+      { offset: 0.7, transform: 'scale(1.2)' },
+      { offset: 0.8, transform: 'scale(0.9)' },
+      { offset: 1, transform: 'scale(1)' },
+    ];
+    const btnFavorite = this.animationCtrl
+      .create('mobile')
+      .addElement(element)
+      .duration(600)
+      .keyframes(keyframes);
+    btnFavorite.play();
   }
 
   async showToast() {
