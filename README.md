@@ -15,4 +15,9 @@
 - Testes unitários com Jasmine e Karma dos 2 services(PokeService, WebhookService) e das duas paginas(HomePage, PokemonDetails)
 - Teste de UI básicos com Cypress
 
+![image](https://user-images.githubusercontent.com/49680351/191176061-3bfa7e10-5a7f-4842-9f79-5af7f5bd2d59.png)
+![image](https://user-images.githubusercontent.com/49680351/191175950-fa1458cb-1a82-462b-bf4f-923ebd646bb5.png)
+![image](https://user-images.githubusercontent.com/49680351/191176005-eb5cb9bb-b6e6-47b2-b5be-56ab73e33511.png)
+
+
 **by [Samuel Alves](https://github.com/SamuelAlv3s)**
