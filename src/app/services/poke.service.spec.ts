@@ -11,7 +11,7 @@ import pokemonListMock from '../mocks/pokemonList.mock';
 
 import { PokeService } from './poke.service';
 
-fdescribe('PokeService', () => {
+describe('PokeService', () => {
   let service: PokeService;
   let httpController: HttpTestingController;
 
