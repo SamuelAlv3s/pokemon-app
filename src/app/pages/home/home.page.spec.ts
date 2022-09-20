@@ -8,7 +8,7 @@ import { PokeService } from 'src/app/services/poke.service';
 
 import { HomePage } from './home.page';
 
-fdescribe('HomePage', () => {
+describe('HomePage', () => {
   let component: HomePage;
   let fixture: ComponentFixture<HomePage>;
 

@@ -48,8 +48,6 @@ export class PokemonDetailsPage implements OnInit {
       this.pokeService
         .getPokemonDetails(this.pokemonName)
         .subscribe((pokemon) => {
-          console.log(pokemon);
-
           this.pokemonDetails = pokemon as unknown as IPokemonDetails;
         });
     });
