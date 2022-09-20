@@ -1,14 +1,13 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
-import { from, of } from 'rxjs';
+import { of } from 'rxjs';
 import { pokemonDetailsResult } from 'src/app/mocks/pokemonDetails.mock';
 
 import { PokemonDetailsPage } from './pokemon-details.page';
 
-fdescribe('PokemonDetailsPage', () => {
+describe('PokemonDetailsPage', () => {
   let component: PokemonDetailsPage;
   let fixture: ComponentFixture<PokemonDetailsPage>;
 
