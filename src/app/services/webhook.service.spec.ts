@@ -6,7 +6,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { WebhookService } from './webhook.service';
 
-fdescribe('WebhookService', () => {
+describe('WebhookService', () => {
   let service: WebhookService;
   let httpController: HttpTestingController;
 

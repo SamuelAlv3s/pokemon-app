@@ -40,12 +40,13 @@ export class HomePage implements OnInit {
   }
 
   loadPokemons(offset?: number) {
-    this.content.scrollToTop(1500);
+    this.content?.scrollToTop(1500);
     this.pokeService.getAllPokemons(offset).subscribe((result) => {
       this.paginate.totalPages = Math.floor(
         result.count / this.pokeService.limit
       );
       this.pokemonList = result;
+
       this.calculatePaginateItens();
     });
   }
